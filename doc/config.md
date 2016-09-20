@@ -1,3 +1,19 @@
+# 流程配置
+配置Carousel流程，可以通过HTTP客户端工具将配置值提交到部署地址上：
+
+```
+http://ip:port/carousel/config/update
+```
+如果配置成功则返回：
+```json
+{
+  "code": 0,
+  "message": "配置已更新。"
+}
+```
+## 配置规则
+Carousel采用JSON格式定义配置参数，可以通过http://ip:port/carousel/config/help获取最新的配置说明：
+```json
 {
   "note": "*-comment为注释，不需要配置。",
   "name-comment": "流程配置名称，更新时如果不存在则新创建，已存在则更新现有配置。",
@@ -24,3 +40,4 @@
   "wait-comment": "执行流程请求时，是否等待执行结束并返回结果。0表示直接返回，1表示等待所有步骤执行完后返回执行结果。",
   "wait": 0
 }
+```
