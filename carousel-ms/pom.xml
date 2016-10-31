@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>carousel-engine</artifactId>
+    <artifactId>carousel-ms</artifactId>
     <packaging>jar</packaging>
 
-    <name>carousel-engine</name>
+    <name>carousel-ms</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -21,12 +21,12 @@
         <dependency>
             <groupId>org.lpw.tephra</groupId>
             <artifactId>tephra-ctrl</artifactId>
-            <version>1.0.0-RELEASE</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>org.lpw.tephra</groupId>
             <artifactId>tephra-test</artifactId>
-            <version>1.0.0-RELEASE</version>
+            <version>LATEST</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

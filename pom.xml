@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>0.2.0-RELEASE</version>
     <modules>
-        <module>carousel-engine</module>
+        <module>carousel-ms</module>
         <module>carousel-web</module>
     </modules>
 
