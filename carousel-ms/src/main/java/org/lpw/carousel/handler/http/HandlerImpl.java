@@ -4,6 +4,7 @@ import net.sf.json.JSONObject;
 import org.lpw.carousel.handler.Handler;
 import org.lpw.carousel.handler.Parameter;
 import org.lpw.tephra.bean.BeanFactory;
+import org.lpw.tephra.ctrl.context.Header;
 import org.lpw.tephra.util.Http;
 import org.lpw.tephra.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class HandlerImpl implements Handler {
     protected Validator validator;
     @Autowired
     protected Http http;
+    @Autowired
+    protected Header header;
 
     @Override
     public String getName() {
@@ -36,7 +39,7 @@ public class HandlerImpl implements Handler {
 
     @Override
     public Object execute(Parameter parameter, Object object) {
-        return http.post(parameter.get("url"), null, object.toString());
+        return http.post(parameter.get("url"), header.getMap(), object.toString());
     }
 
     @Override
