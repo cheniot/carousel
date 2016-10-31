@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author lpw
  */
-@Repository("carousel.process.step.dao")
+@Repository(StepModel.NAME + ".dao")
 public class StepDaoImpl implements StepDao {
     @Autowired
     protected LiteOrm liteOrm;

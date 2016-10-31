@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author lpw
  */
-@Repository("carousel.config.dao")
+@Repository(ConfigModel.NAME + ".dao")
 public class ConfigDaoImpl implements ConfigDao {
     @Autowired
     protected LiteOrm liteOrm;

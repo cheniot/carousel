@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author lpw
  */
-@Service("carousel.process.service")
+@Service(ProcessModel.NAME + ".service")
 public class ProcessServiceImpl implements ProcessService {
     @Autowired
     protected ConfigService configService;
@@ -22,7 +22,7 @@ public class ProcessServiceImpl implements ProcessService {
     protected StepService stepService;
     @Autowired
     protected ProcessDao processDao;
-    @Value("${carousel.process.max-failure:9}")
+    @Value("${" + ProcessModel.NAME + ".max-failure:9}")
     protected int maxFailure;
 
     @Override

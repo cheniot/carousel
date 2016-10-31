@@ -2,7 +2,7 @@
 配置Carousel流程，可以通过HTTP客户端工具将配置值提交到部署地址上：
 
 ```
-http://ip:port/carousel/config/update
+http://ip:port/config/update
 ```
 如果配置成功则返回：
 ```json
@@ -12,7 +12,7 @@ http://ip:port/carousel/config/update
 }
 ```
 ## 配置规则
-Carousel采用JSON格式定义配置参数，可以通过http://ip:port/carousel/config/help获取最新的配置说明：
+Carousel采用JSON格式定义配置参数，可以通过http://ip:port/config/help获取最新的配置说明：
 ```json
 {
   "note": "*-comment为注释，不需要配置。",

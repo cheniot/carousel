@@ -9,24 +9,27 @@ import org.springframework.stereotype.Component;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 import java.sql.Timestamp;
 
 /**
  * @author lpw
  */
-@Component("carousel.config.model")
+@Component(ConfigModel.NAME + ".model")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-@Entity(name = "carousel.config")
-@Table(name = "t_carousel_config")
+@Entity(name = ConfigModel.NAME)
+@Table(name = "t_config")
 public class ConfigModel extends ModelSupport {
-    private String name;
-    private String description;
-    private int delay;
-    private int interval;
-    private int times;
-    private int wait;
-    private String value;
-    private Timestamp time;
+    static final String NAME = "carousel.config";
+
+    private String name; // 名称
+    private String description; // 描述
+    private int delay; // 延迟执行时间
+    private int interval; // 重复执行间隔
+    private int times; // 重复执行次数
+    private int wait; // 配置值
+    private String value; // 配置值
+    private Timestamp time; // 更新时间
 
     @Jsonable
     @Column(name = "c_name")

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 /**
  * @author lpw
  */
-@Controller("carousel.process.ctrl")
-@Execute(name = "/carousel/process/")
+@Controller(ProcessModel.NAME + ".ctrl")
+@Execute(name = "/process/")
 public class ProcessCtrl {
     @Autowired
     protected Request request;

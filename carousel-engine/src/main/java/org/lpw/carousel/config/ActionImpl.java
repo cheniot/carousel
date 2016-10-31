@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author lpw
  */
-@Component("carousel.config.action")
+@Component(ConfigModel.NAME + ".action")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class ActionImpl implements Action {
     private String name;

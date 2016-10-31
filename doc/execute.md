@@ -1,15 +1,15 @@
 # 发起流程
 发起流程只需提交HTTP请求到部署地址：
 ```
-http://ip:port/carousel/process/execute
+http://ip:port/process/execute
 ```
 即可，并提交配置名称参数与处理数据，如：
 ```
-http://localhost:8080/carousel/process/execute?name=hello&delay=10&data=carousel
+http://localhost:8080/process/execute?name=hello&delay=10&data=carousel
 ```
 或：
 ```
-curl -l -H "Content-type: application/json" -X POST -d 'name=hello&delay=10&data=carousel' http://localhost:8080/carousel/process/execute
+curl -l -H "Content-type: application/json" -X POST -d 'name=hello&delay=10&data=carousel' http://localhost:8080/process/execute
 {"code":0,"data":{"code":0,"data":"hello carousel"}}
 ```
 参数说明如下：

@@ -6,7 +6,11 @@ import org.lpw.carousel.handler.Handler;
 import org.lpw.carousel.handler.HandlerFactory;
 import org.lpw.tephra.bean.BeanFactory;
 import org.lpw.tephra.cache.Cache;
-import org.lpw.tephra.util.*;
+import org.lpw.tephra.util.Context;
+import org.lpw.tephra.util.Converter;
+import org.lpw.tephra.util.Io;
+import org.lpw.tephra.util.Logger;
+import org.lpw.tephra.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,7 +86,8 @@ public class ConfigServiceImpl implements ConfigService {
             config = new ConfigModel();
             config.setName(name);
         }
-        config.setDescription(json.getString("description"));
+        if (json.has("description"))
+            config.setDescription(json.getString("description"));
         if (json.has("delay"))
             config.setDelay(Math.max(0, converter.toInt(json.get("delay"))));
         if (json.has("interval"))

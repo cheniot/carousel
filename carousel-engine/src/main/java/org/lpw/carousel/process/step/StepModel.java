@@ -9,21 +9,24 @@ import org.springframework.stereotype.Component;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 import java.sql.Timestamp;
 
 /**
  * @author lpw
  */
-@Component("carousel.process.step.model")
+@Component(StepModel.NAME + ".model")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-@Entity(name = "carousel.process.step")
-@Table(name = "t_carousel_process_step")
+@Entity(name = StepModel.NAME)
+@Table(name = "t_process_step")
 public class StepModel extends ModelSupport {
-    private String process;
-    private int serial;
-    private int index;
-    private String data;
-    private Timestamp time;
+    static final String NAME = "carousel.process.step";
+
+    private String process; // 配置ID值
+    private int serial; // 流水号
+    private int index; // 执行步骤
+    private String data; // 数据
+    private Timestamp time; // 时间
 
     @Jsonable
     @Column(name = "c_process")

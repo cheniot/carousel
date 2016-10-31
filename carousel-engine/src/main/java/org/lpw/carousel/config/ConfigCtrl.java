@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 /**
  * @author lpw
  */
-@Controller("carousel.config.ctrl")
-@Execute(name = "/carousel/config/")
+@Controller(ConfigModel.NAME + ".ctrl")
+@Execute(name = "/config/")
 public class ConfigCtrl {
     @Autowired
     protected Message message;

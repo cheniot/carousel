@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 /**
  * @author lpw
  */
-@Service("carousel.process.step.service")
+@Service(StepModel.NAME + ".service")
 public class StepServiceImpl implements StepService {
     @Autowired
     protected StepDao stepDao;

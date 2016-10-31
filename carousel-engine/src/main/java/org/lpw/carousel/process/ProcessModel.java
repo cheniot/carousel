@@ -9,25 +9,28 @@ import org.springframework.stereotype.Component;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
 import java.sql.Timestamp;
 
 /**
  * @author lpw
  */
-@Component("carousel.process.model")
+@Component(ProcessModel.NAME + ".model")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-@Entity(name = "carousel.process")
-@Table(name = "t_carousel_process")
+@Entity(name = ProcessModel.NAME)
+@Table(name = "t_process")
 public class ProcessModel extends ModelSupport {
-    private String config;
-    private int step;
-    private String in;
-    private String out;
-    private Timestamp start;
-    private Timestamp end;
-    private int times;
-    private int state;
-    private int failure;
+    static final String NAME = "carousel.process";
+
+    private String config; // 配置ID值
+    private int step; // 执行步骤
+    private String in; // 输入数据
+    private String out; // 输出数据
+    private Timestamp start; // 开始时间
+    private Timestamp end; // 结束时间
+    private int times; // 重复执行次数
+    private int state; // 状态
+    private int failure; // 失败次数
 
     @Jsonable
     @Column(name = "c_config")

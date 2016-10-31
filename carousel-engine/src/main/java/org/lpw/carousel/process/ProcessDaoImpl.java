@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author lpw
  */
-@Repository("carousel.process.dao")
+@Repository(ProcessModel.NAME + ".dao")
 public class ProcessDaoImpl implements ProcessDao {
     @Autowired
     protected LiteOrm liteOrm;
