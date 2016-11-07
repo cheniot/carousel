@@ -1,12 +1,12 @@
 package org.lpw.carousel.discovery;
 
-import org.lpw.tephra.bean.ContextRefreshedListener;
 import org.lpw.tephra.cache.Cache;
 import org.lpw.tephra.dao.orm.PageList;
 import org.lpw.tephra.scheduler.SecondsJob;
 import org.lpw.tephra.util.Generator;
 import org.lpw.tephra.util.Http;
 import org.lpw.tephra.util.Logger;
+import org.lpw.tephra.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,14 +16,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * @author lpw
  */
 @Service(DiscoveryModel.NAME + ".service")
-public class DiscoveryServiceImpl implements DiscoveryService, ContextRefreshedListener, SecondsJob {
+public class DiscoveryServiceImpl implements DiscoveryService, SecondsJob {
     private static final String CACHE_KEY = DiscoveryModel.NAME + ".service.key:";
 
     @Autowired
@@ -31,17 +29,22 @@ public class DiscoveryServiceImpl implements DiscoveryService, ContextRefreshedL
     @Autowired
     protected Generator generator;
     @Autowired
+    protected Validator validator;
+    @Autowired
     protected Http http;
     @Autowired
     protected Logger logger;
     @Autowired
     protected DiscoveryDao discoveryDao;
-    @Value("${" + DiscoveryModel.NAME + ".pool-size:5}")
-    protected int poolSize;
-    protected ExecutorService pool;
+    @Value("${" + DiscoveryModel.NAME + ".validate:true}")
+    protected boolean validate;
+    @Value("${" + DiscoveryModel.NAME + ".failure:9}")
+    protected int failure;
+    @Value("${" + DiscoveryModel.NAME + ".success:}")
+    protected String success;
 
     @Override
-    public void register(String key, String service, String validate) {
+    public void register(String key, String service, String validate, String success) {
         DiscoveryModel discovery = discoveryDao.findByKeyService(key, service);
         if (discovery == null) {
             discovery = new DiscoveryModel();
@@ -49,6 +52,7 @@ public class DiscoveryServiceImpl implements DiscoveryService, ContextRefreshedL
             discovery.setService(service);
         }
         discovery.setValidate(validate);
+        discovery.setSuccess(validator.isEmpty(success) ? this.success : success);
         discovery.setState(0);
         discovery.setRegister(new Timestamp(System.currentTimeMillis()));
         discoveryDao.save(discovery);
@@ -61,7 +65,11 @@ public class DiscoveryServiceImpl implements DiscoveryService, ContextRefreshedL
         if (service == null)
             return null;
 
-        return http.post(service, header, parameter);
+        Map<String, String> map = new HashMap<>(header);
+        map.remove("carousel-ds-key");
+        map.remove("content-length");
+
+        return http.post(service, map, parameter);
     }
 
     protected String get(String key) {
@@ -85,20 +93,13 @@ public class DiscoveryServiceImpl implements DiscoveryService, ContextRefreshedL
     }
 
     @Override
-    public int getContextRefreshedSort() {
-        return 21;
-    }
-
-    @Override
-    public void onContextRefreshed() {
-        pool = Executors.newFixedThreadPool(poolSize);
-    }
-
-    @Override
     public void executeSecondsJob() {
+        if (!validate)
+            return;
+
         Map<String, List<DiscoveryModel>> map = new HashMap<>();
         discoveryDao.query().getList().forEach(discovery -> {
-            if (discovery.getState() > 9)
+            if (discovery.getState() > failure && failure > 0)
                 return;
 
             List<DiscoveryModel> list = map.get(discovery.getValidate());
@@ -108,8 +109,7 @@ public class DiscoveryServiceImpl implements DiscoveryService, ContextRefreshedL
             map.put(discovery.getValidate(), list);
         });
         map.keySet().forEach(validate -> {
-            String string = http.get(validate, null, "");
-            if (string != null && string.startsWith("{\"code\":0,")) {
+            if (validator.isMatchRegex(map.get(validate).get(0).getSuccess(), http.get(validate, null, ""))) {
                 map.get(validate).stream().filter(discovery -> discovery.getState() != 0).forEach(discovery -> {
                     discovery.setState(0);
                     discoveryDao.save(discovery);

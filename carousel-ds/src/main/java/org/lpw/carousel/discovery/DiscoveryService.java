@@ -12,8 +12,9 @@ public interface DiscoveryService {
      * @param key      服务key。
      * @param service  服务URL地址。
      * @param validate 验证URL地址。
+     * @param success  验证成功标识。
      */
-    void register(String key, String service, String validate);
+    void register(String key, String service, String validate, String success);
 
     /**
      * 执行请求。

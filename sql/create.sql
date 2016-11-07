@@ -58,6 +58,7 @@ CREATE TABLE t_discovery
   c_key VARCHAR(255) NOT NULL COMMENT '服务key',
   c_service VARCHAR(255) NOT NULL COMMENT '服务URL地址',
   c_validate VARCHAR(255) NOT NULL COMMENT '验证URL地址',
+  c_success VARCHAR(255) NOT NULL COMMENT '验证成功标识',
   c_state INT DEFAULT 0 COMMENT '状态：0-正常，>0-异常',
   c_register DATETIME NOT NULL COMMENT '注册时间',
 
@@ -72,6 +73,7 @@ CREATE TABLE m_discovery
   c_key VARCHAR(255) NOT NULL COMMENT '服务key',
   c_service VARCHAR(255) NOT NULL COMMENT '服务URL地址',
   c_validate VARCHAR(255) NOT NULL COMMENT '验证URL地址',
+  c_success VARCHAR(255) NOT NULL COMMENT '验证成功标识',
   c_state INT DEFAULT 0 COMMENT '状态：0-正常，>0-异常',
   c_register DATETIME NOT NULL COMMENT '注册时间',
 

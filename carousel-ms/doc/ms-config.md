@@ -1,3 +1,5 @@
+# ms.carousel.config.properties
+```properties
 ## 设置引擎执行线程池最大线程数。
 ## 线程池越大处理能力越高，但需要的系统资源也越多。
 #carousel.engine.pool-size = 5
@@ -11,3 +13,4 @@
 ## 设置流程最大失败次数。
 ## 如果流程执行失败次数超过设置值，则该流程将不再被执行。
 #carousel.process.max-failure = 9
+```

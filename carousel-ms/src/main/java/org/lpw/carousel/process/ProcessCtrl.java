@@ -12,15 +12,17 @@ import org.springframework.stereotype.Controller;
  * @author lpw
  */
 @Controller(ProcessModel.NAME + ".ctrl")
-@Execute(name = "/process/")
+@Execute(name = "/process/", key = ProcessModel.NAME, code = "10")
 public class ProcessCtrl {
     @Autowired
     protected Request request;
     @Autowired
     protected Engine engine;
 
-    @Execute(name = "execute", validates = {@Validate(validator = Validators.NOT_EMPTY, parameter = "name", failureCode = 1001, failureArgKeys = {"name"}),
-            @Validate(validator = Validators.NOT_EMPTY, parameter = "data", failureCode = 1002, failureArgKeys = {"data"})})
+    @Execute(name = "execute", validates = {@Validate(validator = Validators.TRUSTFUL_IP),
+            @Validate(validator = Validators.NOT_EMPTY, parameter = "name", failureCode = 1),
+            @Validate(validator = Validators.NOT_EMPTY, parameter = "data", failureCode = 2)
+    })
     public Object execute() {
         Object object = engine.execute(request.get("name"), request.getAsInt("delay"), request.get("data"));
 
