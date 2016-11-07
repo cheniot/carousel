@@ -7,7 +7,7 @@
     <groupId>org.lpw.carousel</groupId>
     <artifactId>carousel</artifactId>
     <packaging>pom</packaging>
-    <version>0.2.0-RELEASE</version>
+    <version>0.3.0-RELEASE</version>
     <modules>
         <module>carousel-ms</module>
         <module>carousel-ds</module>
