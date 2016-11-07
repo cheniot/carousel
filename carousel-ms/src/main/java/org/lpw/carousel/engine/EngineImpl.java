@@ -29,8 +29,8 @@ public class EngineImpl implements Engine, ContextRefreshedListener, ContextClos
     protected ConfigService configService;
     @Autowired
     protected ProcessService processService;
-    @Value("${carousel.engine.pool.size:5}")
-    protected int size;
+    @Value("${carousel.engine.pool-size:5}")
+    protected int poolSize;
     @Value("${carousel.engine.auto:true}")
     protected boolean auto;
     protected ExecutorService pool;
@@ -67,7 +67,7 @@ public class EngineImpl implements Engine, ContextRefreshedListener, ContextClos
 
     @Override
     public void onContextRefreshed() {
-        pool = Executors.newFixedThreadPool(size);
+        pool = Executors.newFixedThreadPool(poolSize);
         executers = new ArrayList<>();
         if (auto)
             processService.unfinished().forEach(process -> executers.add(BeanFactory.getBean(Executer.class).set(process)));

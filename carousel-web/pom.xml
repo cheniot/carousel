@@ -17,9 +17,14 @@
             <version>0.2.0-RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>org.lpw.carousel</groupId>
+            <artifactId>carousel-ds</artifactId>
+            <version>0.2.0-RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>org.lpw.tephra</groupId>
             <artifactId>tephra-web</artifactId>
-            <version>1.0.0-RELEASE</version>
+            <version>LATEST</version>
             <type>war</type>
         </dependency>
     </dependencies>

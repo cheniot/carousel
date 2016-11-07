@@ -10,6 +10,7 @@
     <version>0.2.0-RELEASE</version>
     <modules>
         <module>carousel-ms</module>
+        <module>carousel-ds</module>
         <module>carousel-web</module>
     </modules>
 
