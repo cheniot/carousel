@@ -77,4 +77,4 @@ CREATE TABLE m_discovery
 
   PRIMARY KEY pk_discovery(c_id),
   UNIQUE KEY uk_discovery_key_service(c_key,c_service)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=Memory DEFAULT CHARSET=utf8;
