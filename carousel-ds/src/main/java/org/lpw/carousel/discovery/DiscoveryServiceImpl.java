@@ -65,11 +65,7 @@ public class DiscoveryServiceImpl implements DiscoveryService, SecondsJob {
         if (service == null)
             return null;
 
-        Map<String, String> map = new HashMap<>(header);
-        map.remove("carousel-ds-key");
-        map.remove("content-length");
-
-        return http.post(service, map, parameter);
+        return http.post(service, header, parameter);
     }
 
     protected String get(String key) {
