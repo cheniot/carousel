@@ -7,8 +7,7 @@ import org.lpw.carousel.handler.Handler;
 import org.lpw.carousel.handler.HandlerFactory;
 import org.lpw.carousel.process.ProcessModel;
 import org.lpw.carousel.process.ProcessService;
-import org.lpw.carousel.process.step.StepService;
-import org.lpw.tephra.dao.Commitable;
+import org.lpw.tephra.atomic.Closable;
 import org.lpw.tephra.util.Logger;
 import org.lpw.tephra.util.TimeUnit;
 import org.lpw.tephra.util.Validator;
@@ -30,7 +29,7 @@ public class ExecuterImpl implements Executer {
     @Autowired
     protected Logger logger;
     @Autowired
-    protected Set<Commitable> commitables;
+    protected Set<Closable> closables;
     @Autowired
     protected ConfigService configService;
     @Autowired
@@ -134,6 +133,6 @@ public class ExecuterImpl implements Executer {
     }
 
     protected void commit() {
-        commitables.forEach(Commitable::close);
+        closables.forEach(Closable::close);
     }
 }

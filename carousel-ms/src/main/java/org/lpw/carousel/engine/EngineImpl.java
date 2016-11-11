@@ -8,6 +8,7 @@ import org.lpw.tephra.bean.ContextClosedListener;
 import org.lpw.tephra.bean.ContextRefreshedListener;
 import org.lpw.tephra.scheduler.SecondsJob;
 import org.lpw.tephra.util.Logger;
+import org.lpw.tephra.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.util.concurrent.Future;
  */
 @Service("carousel.engine")
 public class EngineImpl implements Engine, ContextRefreshedListener, ContextClosedListener, SecondsJob {
+    @Autowired protected Validator validator;
     @Autowired
     protected Logger logger;
     @Autowired
@@ -85,7 +87,7 @@ public class EngineImpl implements Engine, ContextRefreshedListener, ContextClos
 
     @Override
     public void executeSecondsJob() {
-        if (executers.isEmpty())
+        if (validator.isEmpty(executers))
             return;
 
         executers(null).forEach(executer -> pool.submit(executer.reset()));
