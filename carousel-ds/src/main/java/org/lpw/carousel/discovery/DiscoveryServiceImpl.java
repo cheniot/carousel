@@ -3,6 +3,7 @@ package org.lpw.carousel.discovery;
 import org.lpw.tephra.cache.Cache;
 import org.lpw.tephra.dao.orm.PageList;
 import org.lpw.tephra.scheduler.SecondsJob;
+import org.lpw.tephra.util.DateTime;
 import org.lpw.tephra.util.Generator;
 import org.lpw.tephra.util.Http;
 import org.lpw.tephra.util.Logger;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +32,8 @@ public class DiscoveryServiceImpl implements DiscoveryService, SecondsJob {
     protected Validator validator;
     @Autowired
     protected Http http;
+    @Autowired
+    protected DateTime dateTime;
     @Autowired
     protected Logger logger;
     @Autowired
@@ -54,9 +56,12 @@ public class DiscoveryServiceImpl implements DiscoveryService, SecondsJob {
         discovery.setValidate(validate);
         discovery.setSuccess(validator.isEmpty(success) ? this.success : success);
         discovery.setState(0);
-        discovery.setRegister(new Timestamp(System.currentTimeMillis()));
+        discovery.setRegister(dateTime.now());
         discoveryDao.save(discovery);
         cache.remove(CACHE_KEY + key);
+
+        if (logger.isDebugEnable())
+            logger.debug("注册服务[key={},service={},validate={},success={}]。", key, service, validate, success);
     }
 
     @Override
