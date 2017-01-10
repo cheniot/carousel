@@ -27,7 +27,7 @@ public class ConfigModel extends ModelSupport {
     private int delay; // 延迟执行时间
     private int interval; // 重复执行间隔
     private int times; // 重复执行次数
-    private int wait; // 配置值
+    private int wait; // 是否等待执行结果：0-否；1-是
     private String value; // 配置值
     private Timestamp time; // 更新时间
 
