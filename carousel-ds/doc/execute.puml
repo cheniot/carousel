@@ -1,0 +1,9 @@
+@startuml
+
+Actor 使用者
+使用者 -> Carousel
+Carousel -> Service
+Carousel <-- Service
+使用者 <-- Carousel
+
+@enduml

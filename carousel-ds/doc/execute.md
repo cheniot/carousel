@@ -1,5 +1,7 @@
 # 调用服务
 
+![调用流程](execute.png)
+
 调用服务时，只需发送HTTP(S)请求到/discovery/execute即可，如：
 ```shell
 curl -H "carousel-ds-key: service-key" -d "key=value" http://localhost:8080/discovery/execute

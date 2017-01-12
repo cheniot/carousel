@@ -12,7 +12,5 @@ public interface ConfigDao {
 
     void save(ConfigModel config);
 
-    void delete(String name);
-
-    PageList<ConfigModel> query();
+    PageList<ConfigModel> query(String name, int pageSize, int pageNum);
 }

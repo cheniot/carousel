@@ -1,5 +1,7 @@
 # 注册服务
 
+![注册流程](register.png)
+
 注册服务时，只需发送HTTP(S)请求到/discovery/register即可，如：
 ```shell
 curl -d "key=service-key&service=http://service-url&validate=http://localhost:8080/tephra/ctrl/status&success=^\{\"code\":0,.*" http://localhost:8080/discovery/register

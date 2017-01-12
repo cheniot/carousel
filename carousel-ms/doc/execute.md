@@ -1,4 +1,7 @@
 # 发起流程
+
+![执行](execute.png)
+
 发起流程只需提交HTTP请求到部署地址：
 ```
 http://ip:port/process/execute

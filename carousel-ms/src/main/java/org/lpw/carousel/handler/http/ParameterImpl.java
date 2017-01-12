@@ -15,7 +15,7 @@ import java.util.Map;
 @Component("carousel.handler.http.parameter")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class ParameterImpl implements Parameter {
-    protected Map<String, String> map = new HashMap<>();
+    private Map<String, String> map = new HashMap<>();
 
     @Override
     public void set(JSONObject object) {

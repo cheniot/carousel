@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 public class StepModel extends ModelSupport {
     static final String NAME = "carousel.process.step";
 
-    private String process; // 配置ID值
+    private String process; // 流程ID值
     private int serial; // 流水号
     private int index; // 执行步骤
     private String data; // 数据

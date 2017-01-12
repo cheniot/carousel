@@ -1,5 +1,6 @@
 package org.lpw.carousel.process;
 
+import net.sf.json.JSONObject;
 import org.lpw.carousel.config.ConfigModel;
 
 import java.util.List;
@@ -59,4 +60,14 @@ public interface ProcessService {
      * @return 最大失败次数设置。
      */
     int getMaxFailure();
+
+    /**
+     * 检索流程集。
+     *
+     * @param config   配置ID值。
+     * @param pageSize 每页显示记录数。
+     * @param pageNum  当前显示页数。
+     * @return 流程集。
+     */
+    JSONObject query(String config, int pageSize, int pageNum);
 }

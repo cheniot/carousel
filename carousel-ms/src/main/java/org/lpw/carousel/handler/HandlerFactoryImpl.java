@@ -16,8 +16,8 @@ import java.util.Set;
 @Service("carousel.engine.handler.factory")
 public class HandlerFactoryImpl implements HandlerFactory, ContextRefreshedListener {
     @Value("${carousel.engine.pool.poolSize:512}")
-    protected int size;
-    protected Map<String, Handler> handlers;
+    private int size;
+    private Map<String, Handler> handlers;
 
     @Override
     public Handler get(String name) {

@@ -29,7 +29,7 @@ public class ProcessModel extends ModelSupport {
     private Timestamp start; // 开始时间
     private Timestamp end; // 结束时间
     private int times; // 重复执行次数
-    private int state; // 状态
+    private int state; // 状态：0-未开始；1-已完成；2-已取消
     private int failure; // 失败次数
 
     @Jsonable

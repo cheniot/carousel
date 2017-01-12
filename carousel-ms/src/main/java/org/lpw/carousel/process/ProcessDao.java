@@ -11,4 +11,6 @@ public interface ProcessDao {
     void save(ProcessModel process);
 
     PageList<ProcessModel> state(int state, int failure);
+
+    PageList<ProcessModel> query(String config, int pageSize, int pageNum);
 }

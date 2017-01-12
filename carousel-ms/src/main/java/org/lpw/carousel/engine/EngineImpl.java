@@ -9,10 +9,10 @@ import org.lpw.tephra.bean.ContextRefreshedListener;
 import org.lpw.tephra.scheduler.SecondsJob;
 import org.lpw.tephra.util.Logger;
 import org.lpw.tephra.util.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -24,19 +24,20 @@ import java.util.concurrent.Future;
  */
 @Service("carousel.engine")
 public class EngineImpl implements Engine, ContextRefreshedListener, ContextClosedListener, SecondsJob {
-    @Autowired protected Validator validator;
-    @Autowired
-    protected Logger logger;
-    @Autowired
-    protected ConfigService configService;
-    @Autowired
-    protected ProcessService processService;
+    @Inject
+    private Validator validator;
+    @Inject
+    private Logger logger;
+    @Inject
+    private ConfigService configService;
+    @Inject
+    private ProcessService processService;
     @Value("${carousel.engine.pool-size:5}")
-    protected int poolSize;
+    private int poolSize;
     @Value("${carousel.engine.auto:true}")
-    protected boolean auto;
-    protected ExecutorService pool;
-    protected List<Executer> executers;
+    private boolean auto;
+    private ExecutorService pool;
+    private List<Executer> executers;
 
     @Override
     public Object execute(String name, int delay, String data) {
@@ -93,7 +94,7 @@ public class EngineImpl implements Engine, ContextRefreshedListener, ContextClos
         executers(null).forEach(executer -> pool.submit(executer.reset()));
     }
 
-    protected synchronized List<Executer> executers(Executer executer) {
+    private synchronized List<Executer> executers(Executer executer) {
         if (executer != null) {
             executers.add(executer);
 

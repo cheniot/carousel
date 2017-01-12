@@ -7,25 +7,26 @@ import org.lpw.tephra.ctrl.template.Templates;
 import org.lpw.tephra.ctrl.validate.Validate;
 import org.lpw.tephra.ctrl.validate.Validators;
 import org.lpw.tephra.util.Message;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import javax.inject.Inject;
 
 /**
  * @author lpw
  */
 @Controller(DiscoveryModel.NAME + ".ctrl")
-@Execute(name = "/discovery/", key = DiscoveryModel.NAME, code = "20")
+@Execute(name = "/discovery/", key = DiscoveryModel.NAME, code = "23")
 public class DiscoveryCtrl {
-    @Autowired
-    protected Message message;
-    @Autowired
-    protected Header header;
-    @Autowired
-    protected Request request;
-    @Autowired
-    protected Templates templates;
-    @Autowired
-    protected DiscoveryService discoveryService;
+    @Inject
+    private Message message;
+    @Inject
+    private Header header;
+    @Inject
+    private Request request;
+    @Inject
+    private Templates templates;
+    @Inject
+    private DiscoveryService discoveryService;
 
     @Execute(name = "register", validates = {
             @Validate(validator = Validators.TRUSTFUL_IP),
@@ -47,8 +48,13 @@ public class DiscoveryCtrl {
     public Object execute() {
         String string = discoveryService.execute(header.getMap(), request.getMap());
         if (string == null)
-            return templates.get().failure(2001, message.get(DiscoveryModel.NAME + ".key.not-exists"), null, null);
+            return templates.get().failure(2311, message.get(DiscoveryModel.NAME + ".key.not-exists"), null, null);
 
         return string;
+    }
+
+    @Execute(name = "query", validates = {@Validate(validator = Validators.TRUSTFUL_IP)})
+    public Object query() {
+        return discoveryService.query(request.get("key"), request.get("service"), request.getAsInt("pageSize"), request.getAsInt("pageNum"));
     }
 }

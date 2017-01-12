@@ -4,16 +4,17 @@ import net.sf.json.JSONObject;
 import org.lpw.carousel.handler.Handler;
 import org.lpw.carousel.handler.Parameter;
 import org.lpw.tephra.util.Xml;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
 
 /**
  * @author lpw
  */
 @Service("carousel.handler.xml2json")
 public class HandlerImpl implements Handler {
-    @Autowired
-    protected Xml xml;
+    @Inject
+    private Xml xml;
 
     @Override
     public String getName() {

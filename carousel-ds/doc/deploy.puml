@@ -1,0 +1,17 @@
+@startuml
+
+Actor 使用者
+使用者 --> Carousel服务群: 执行
+Carousel服务群 <--> 微服务群: 注册 & 执行
+
+package 微服务群{
+[Service N]
+[Service 1]
+}
+
+package Carousel服务群{
+[Node N]
+[Node 1]
+}
+
+@enduml

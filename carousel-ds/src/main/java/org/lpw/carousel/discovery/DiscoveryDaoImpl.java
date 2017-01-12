@@ -1,18 +1,27 @@
 package org.lpw.carousel.discovery;
 
+import org.lpw.tephra.dao.jdbc.DataSource;
 import org.lpw.tephra.dao.orm.PageList;
 import org.lpw.tephra.dao.orm.lite.LiteOrm;
 import org.lpw.tephra.dao.orm.lite.LiteQuery;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.lpw.tephra.util.Validator;
 import org.springframework.stereotype.Repository;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author lpw
  */
 @Repository(DiscoveryModel.NAME + ".dao")
 class DiscoveryDaoImpl implements DiscoveryDao {
-    @Autowired
-    protected LiteOrm liteOrm;
+    @Inject
+    private Validator validator;
+    @Inject
+    private DataSource dataSource;
+    @Inject
+    private LiteOrm liteOrm;
 
     @Override
     public DiscoveryModel findByKeyService(String key, String service) {
@@ -32,5 +41,23 @@ class DiscoveryDaoImpl implements DiscoveryDao {
     @Override
     public PageList<DiscoveryModel> query() {
         return liteOrm.query(new LiteQuery(DiscoveryModel.class), null);
+    }
+
+    @Override
+    public PageList<DiscoveryModel> query(String key, String service, int pageSize, int pageNum) {
+        StringBuilder where = new StringBuilder();
+        List<Object> args = new ArrayList<>();
+        if (!validator.isEmpty(key)) {
+            where.append("c_key like ?");
+            args.add(dataSource.getDialect(null).getLike(key, true, true));
+        }
+        if (!validator.isEmpty(service)) {
+            if (!args.isEmpty())
+                where.append(" and ");
+            where.append("c_service like ?");
+            args.add(dataSource.getDialect(null).getLike(key, true, true));
+        }
+
+        return liteOrm.query(new LiteQuery(DiscoveryModel.class).where(where.toString()).order("c_register desc").size(pageSize).page(pageNum), args.toArray());
     }
 }

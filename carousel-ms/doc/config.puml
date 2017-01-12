@@ -1,0 +1,6 @@
+@startuml
+
+Actor 使用者
+使用者 -> Carousel
+
+@enduml

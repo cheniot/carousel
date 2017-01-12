@@ -6,14 +6,10 @@ import org.lpw.carousel.handler.Handler;
 import org.lpw.carousel.handler.HandlerFactory;
 import org.lpw.tephra.bean.BeanFactory;
 import org.lpw.tephra.cache.Cache;
-import org.lpw.tephra.util.Context;
-import org.lpw.tephra.util.Converter;
-import org.lpw.tephra.util.Io;
-import org.lpw.tephra.util.Logger;
-import org.lpw.tephra.util.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.lpw.tephra.util.*;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.sql.Timestamp;
 
 /**
@@ -26,22 +22,22 @@ public class ConfigServiceImpl implements ConfigService {
     private static final String CACHE_ACTIONS = "carousel.config.service.actions:";
     private static final String CACHE_HELP = "carousel.config.service.help:";
 
-    @Autowired
-    protected Context context;
-    @Autowired
-    protected Cache cache;
-    @Autowired
-    protected Converter converter;
-    @Autowired
-    protected Validator validator;
-    @Autowired
-    protected Io io;
-    @Autowired
-    protected Logger logger;
-    @Autowired
-    protected HandlerFactory handlerFactory;
-    @Autowired
-    protected ConfigDao configDao;
+    @Inject
+    private Context context;
+    @Inject
+    private Cache cache;
+    @Inject
+    private Converter converter;
+    @Inject
+    private Validator validator;
+    @Inject
+    private Io io;
+    @Inject
+    private Logger logger;
+    @Inject
+    private HandlerFactory handlerFactory;
+    @Inject
+    private ConfigDao configDao;
 
     @Override
     public Update update(String value) {
@@ -169,5 +165,10 @@ public class ConfigServiceImpl implements ConfigService {
         }
 
         return actions;
+    }
+
+    @Override
+    public JSONObject query(String name, int pageSize, int pageNum) {
+        return configDao.query(name, pageSize, pageNum).toJson();
     }
 }

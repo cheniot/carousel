@@ -1,5 +1,7 @@
 package org.lpw.carousel.discovery;
 
+import net.sf.json.JSONObject;
+
 import java.util.Map;
 
 /**
@@ -24,4 +26,14 @@ public interface DiscoveryService {
      * @return 执行结果。
      */
     String execute(Map<String, String> header, Map<String, String> parameter);
+
+    /**
+     * 检索数据。
+     * @param key 服务key，模糊匹配。
+     * @param service 服务URL地址，模糊匹配。
+     * @param pageSize 每页显示记录数。
+     * @param pageNum 当前显示页数。
+     * @return 数据集。
+     */
+    JSONObject query(String key, String service, int pageSize,int pageNum);
 }

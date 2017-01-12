@@ -1,8 +1,10 @@
 package org.lpw.carousel.process.step;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import net.sf.json.JSONArray;
+import org.lpw.tephra.dao.model.ModelHelper;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.sql.Timestamp;
 
 /**
@@ -10,8 +12,10 @@ import java.sql.Timestamp;
  */
 @Service(StepModel.NAME + ".service")
 public class StepServiceImpl implements StepService {
-    @Autowired
-    protected StepDao stepDao;
+    @Inject
+    private ModelHelper modelHelper;
+    @Inject
+    private StepDao stepDao;
 
     @Override
     public void save(String process, int index, String data) {
@@ -22,5 +26,10 @@ public class StepServiceImpl implements StepService {
         step.setData(data);
         step.setTime(new Timestamp(System.currentTimeMillis()));
         stepDao.save(step);
+    }
+
+    @Override
+    public JSONArray query(String process) {
+        return modelHelper.toJson(stepDao.query(process).getList());
     }
 }

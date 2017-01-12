@@ -1,10 +1,14 @@
 package org.lpw.carousel.config;
 
+import net.sf.json.JSONObject;
+
 /**
  * @author lpw
  */
 public interface ConfigService {
     enum Update {Success, Exception, Empty, NameIllegal, ActionsIllegal, HandlerIllegal}
+
+    String VALIDATOR_EXISTS=ConfigModel.NAME+".validator.exists";
 
     /**
      * 更新配置。
@@ -45,4 +49,14 @@ public interface ConfigService {
      * @return 执行步骤集。
      */
     Action[] getActions(String id);
+
+    /**
+     * 检索数据。
+     *
+     * @param name     配置名称，模糊匹配。
+     * @param pageSize 每页显示记录数。
+     * @param pageNum  当前显示页数。
+     * @return 数据集。
+     */
+    JSONObject query(String name, int pageSize, int pageNum);
 }

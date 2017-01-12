@@ -11,11 +11,11 @@ import org.lpw.tephra.atomic.Closable;
 import org.lpw.tephra.util.Logger;
 import org.lpw.tephra.util.TimeUnit;
 import org.lpw.tephra.util.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.Set;
 
 /**
@@ -24,27 +24,27 @@ import java.util.Set;
 @Service("carousel.engine.executer")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class ExecuterImpl implements Executer {
-    @Autowired
-    protected Validator validator;
-    @Autowired
-    protected Logger logger;
-    @Autowired
-    protected Set<Closable> closables;
-    @Autowired
-    protected ConfigService configService;
-    @Autowired
-    protected HandlerFactory handlerFactory;
-    @Autowired
-    protected ProcessService processService;
-    @Autowired
-    protected Engine engine;
-    protected ConfigModel config;
-    protected String process;
-    protected Object data;
-    protected int index;
-    protected long time;
-    protected int failure;
-    protected boolean reset;
+    @Inject
+    private Validator validator;
+    @Inject
+    private Logger logger;
+    @Inject
+    private Set<Closable> closables;
+    @Inject
+    private ConfigService configService;
+    @Inject
+    private HandlerFactory handlerFactory;
+    @Inject
+    private ProcessService processService;
+    @Inject
+    private Engine engine;
+    private ConfigModel config;
+    private String process;
+    private Object data;
+    private int index;
+    private long time;
+    private int failure;
+    private boolean reset;
 
     @Override
     public Executer set(ProcessModel process) {
@@ -91,7 +91,7 @@ public class ExecuterImpl implements Executer {
         return data;
     }
 
-    protected void execute() {
+    private void execute() {
         Action[] actions = configService.getActions(config.getId());
         if (validator.isEmpty(actions))
             return;
@@ -111,7 +111,7 @@ public class ExecuterImpl implements Executer {
         engine.execute(this);
     }
 
-    protected boolean execute(Action action) {
+    private boolean execute(Action action) {
         Handler handler = handlerFactory.get(action.getHandler());
         if (handler == null)
             return false;
@@ -132,7 +132,7 @@ public class ExecuterImpl implements Executer {
         return true;
     }
 
-    protected void commit() {
+    private void commit() {
         closables.forEach(Closable::close);
     }
 }

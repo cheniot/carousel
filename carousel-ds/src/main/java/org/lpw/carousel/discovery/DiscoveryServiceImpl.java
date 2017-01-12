@@ -1,17 +1,14 @@
 package org.lpw.carousel.discovery;
 
+import net.sf.json.JSONObject;
 import org.lpw.tephra.cache.Cache;
 import org.lpw.tephra.dao.orm.PageList;
 import org.lpw.tephra.scheduler.SecondsJob;
-import org.lpw.tephra.util.DateTime;
-import org.lpw.tephra.util.Generator;
-import org.lpw.tephra.util.Http;
-import org.lpw.tephra.util.Logger;
-import org.lpw.tephra.util.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.lpw.tephra.util.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,26 +21,26 @@ import java.util.Map;
 public class DiscoveryServiceImpl implements DiscoveryService, SecondsJob {
     private static final String CACHE_KEY = DiscoveryModel.NAME + ".service.key:";
 
-    @Autowired
-    protected Cache cache;
-    @Autowired
-    protected Generator generator;
-    @Autowired
-    protected Validator validator;
-    @Autowired
-    protected Http http;
-    @Autowired
-    protected DateTime dateTime;
-    @Autowired
-    protected Logger logger;
-    @Autowired
-    protected DiscoveryDao discoveryDao;
+    @Inject
+    private Cache cache;
+    @Inject
+    private Generator generator;
+    @Inject
+    private Validator validator;
+    @Inject
+    private Http http;
+    @Inject
+    private DateTime dateTime;
+    @Inject
+    private Logger logger;
+    @Inject
+    private DiscoveryDao discoveryDao;
     @Value("${" + DiscoveryModel.NAME + ".validate:true}")
-    protected boolean validate;
+    private boolean validate;
     @Value("${" + DiscoveryModel.NAME + ".failure:9}")
-    protected int failure;
+    private int failure;
     @Value("${" + DiscoveryModel.NAME + ".success:}")
-    protected String success;
+    private String success;
 
     @Override
     public void register(String key, String service, String validate, String success) {
@@ -73,13 +70,13 @@ public class DiscoveryServiceImpl implements DiscoveryService, SecondsJob {
         return http.post(service, header, parameter);
     }
 
-    protected String get(String key) {
+    private String get(String key) {
         String[] array = query(key);
 
         return array.length > 0 ? array[generator.random(0, array.length - 1)] : null;
     }
 
-    protected String[] query(String key) {
+    private String[] query(String key) {
         String cacheKey = CACHE_KEY + key;
         String[] array = cache.get(cacheKey);
         if (array == null) {
@@ -91,6 +88,11 @@ public class DiscoveryServiceImpl implements DiscoveryService, SecondsJob {
         }
 
         return array;
+    }
+
+    @Override
+    public JSONObject query(String key, String service, int pageSize, int pageNum) {
+        return discoveryDao.query(key, service, pageSize, pageNum).toJson();
     }
 
     @Override

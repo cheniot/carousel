@@ -13,4 +13,6 @@ interface DiscoveryDao {
     PageList<DiscoveryModel> query(String key, int state);
 
     PageList<DiscoveryModel> query();
+
+    PageList<DiscoveryModel> query(String key, String service, int pageSize, int pageNum);
 }

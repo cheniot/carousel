@@ -1,13 +1,14 @@
 package org.lpw.carousel.process;
 
+import net.sf.json.JSONObject;
 import org.lpw.carousel.config.ConfigModel;
 import org.lpw.carousel.config.ConfigService;
 import org.lpw.carousel.process.step.StepService;
 import org.lpw.tephra.util.TimeUnit;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -16,14 +17,14 @@ import java.util.List;
  */
 @Service(ProcessModel.NAME + ".service")
 public class ProcessServiceImpl implements ProcessService {
-    @Autowired
-    protected ConfigService configService;
-    @Autowired
-    protected StepService stepService;
-    @Autowired
-    protected ProcessDao processDao;
+    @Inject
+    private ConfigService configService;
+    @Inject
+    private StepService stepService;
+    @Inject
+    private ProcessDao processDao;
     @Value("${" + ProcessModel.NAME + ".max-failure:9}")
-    protected int maxFailure;
+    private int maxFailure;
 
     @Override
     public ProcessModel begin(ConfigModel config, int delay, String data) {
@@ -88,7 +89,7 @@ public class ProcessServiceImpl implements ProcessService {
         return process;
     }
 
-    protected ProcessModel done(String processId, int step, String data, boolean save) {
+    private ProcessModel done(String processId, int step, String data, boolean save) {
         ProcessModel process = processDao.findById(processId);
         if (process == null)
             return null;
@@ -110,5 +111,10 @@ public class ProcessServiceImpl implements ProcessService {
     @Override
     public int getMaxFailure() {
         return maxFailure;
+    }
+
+    @Override
+    public JSONObject query(String config, int pageSize, int pageNum) {
+        return processDao.query(config, pageSize, pageNum).toJson();
     }
 }

@@ -7,20 +7,21 @@ import org.lpw.tephra.bean.BeanFactory;
 import org.lpw.tephra.ctrl.context.Header;
 import org.lpw.tephra.util.Http;
 import org.lpw.tephra.util.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
 
 /**
  * @author lpw
  */
 @Service("carousel.handler.http")
 public class HandlerImpl implements Handler {
-    @Autowired
-    protected Validator validator;
-    @Autowired
-    protected Http http;
-    @Autowired
-    protected Header header;
+    @Inject
+    private Validator validator;
+    @Inject
+    private Http http;
+    @Inject
+    private Header header;
 
     @Override
     public String getName() {
