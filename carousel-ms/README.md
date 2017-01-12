@@ -14,4 +14,6 @@
 
 [检索流程](doc/query-process.md)
 
+[检索步骤](doc/query-step.md)
+
 [设置参数](src/main/resources/ms.carousel.config)
