@@ -55,7 +55,7 @@ class DiscoveryDaoImpl implements DiscoveryDao {
             if (!args.isEmpty())
                 where.append(" and ");
             where.append("c_service like ?");
-            args.add(dataSource.getDialect(null).getLike(key, true, true));
+            args.add(dataSource.getDialect(null).getLike(service, true, true));
         }
 
         return liteOrm.query(new LiteQuery(DiscoveryModel.class).where(where.toString()).order("c_register desc").size(pageSize).page(pageNum), args.toArray());

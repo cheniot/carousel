@@ -7,12 +7,22 @@
     <groupId>org.lpw.carousel</groupId>
     <artifactId>carousel</artifactId>
     <packaging>pom</packaging>
-    <version>0.3.0-RELEASE</version>
+    <version>0.4.0-RELEASE</version>
     <modules>
         <module>carousel-ms</module>
         <module>carousel-ds</module>
         <module>carousel-web</module>
+        <module>carousel-test</module>
     </modules>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.7.201606060606</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

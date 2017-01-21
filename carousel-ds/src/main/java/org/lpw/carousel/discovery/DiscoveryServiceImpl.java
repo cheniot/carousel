@@ -71,6 +71,9 @@ public class DiscoveryServiceImpl implements DiscoveryService, SecondsJob {
     }
 
     private String get(String key) {
+        if (validator.isEmpty(key))
+            return null;
+
         String[] array = query(key);
 
         return array.length > 0 ? array[generator.random(0, array.length - 1)] : null;

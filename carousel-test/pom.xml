@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>carousel-ms</artifactId>
+    <artifactId>carousel-test</artifactId>
     <packaging>jar</packaging>
 
-    <name>carousel-ms</name>
+    <name>carousel-test</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -20,14 +20,8 @@
     <dependencies>
         <dependency>
             <groupId>org.lpw.tephra</groupId>
-            <artifactId>tephra-ctrl</artifactId>
+            <artifactId>tephra-test</artifactId>
             <version>LATEST</version>
-        </dependency>
-        <dependency>
-            <groupId>org.lpw.carousel</groupId>
-            <artifactId>carousel-test</artifactId>
-            <version>0.4.0-RELEASE</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
