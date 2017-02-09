@@ -43,7 +43,7 @@ public class ConfigDaoImpl implements ConfigDao {
         StringBuilder where = new StringBuilder();
         List<Object> args = new ArrayList<>();
         if (!validator.isEmpty(name)) {
-            where.append("c_key like ?");
+            where.append("c_name like ?");
             args.add(dataSource.getDialect(null).getLike(name, true, true));
         }
 
