@@ -115,6 +115,10 @@ public class ProcessServiceImpl implements ProcessService {
 
     @Override
     public JSONObject query(String config, int pageSize, int pageNum) {
-        return processDao.query(config, pageSize, pageNum).toJson();
+        ConfigModel cfg = configService.findByName(config);
+        if (cfg == null)
+            return new JSONObject();
+
+        return processDao.query(cfg.getId(), pageSize, pageNum).toJson();
     }
 }

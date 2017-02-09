@@ -3,7 +3,7 @@
 URI - /process/query
 
 参数：
-- config 配置ID值。
+- config 配置名称。
 - pageSize 每页显示记录数。
 - pageNum 当前显示页数。
 
