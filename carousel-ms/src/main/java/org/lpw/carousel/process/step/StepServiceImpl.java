@@ -1,6 +1,6 @@
 package org.lpw.carousel.process.step;
 
-import net.sf.json.JSONArray;
+import com.alibaba.fastjson.JSONArray;
 import org.lpw.tephra.dao.model.ModelHelper;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package org.lpw.carousel;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Assert;
 import org.lpw.tephra.test.MockHelper;
 import org.lpw.tephra.test.TephraTestSupport;
@@ -33,7 +33,7 @@ public class CarouselTestSupport extends TephraTestSupport {
         mockHelper.reset();
         mockHelper.mock(uri);
         JSONObject object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(9996, object.getInt("code"));
+        Assert.assertEquals(9996, object.getIntValue("code"));
 
         io.write(path, bytes);
         thread.sleep(2, TimeUnit.Second);

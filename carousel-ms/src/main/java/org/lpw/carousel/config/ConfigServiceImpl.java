@@ -1,7 +1,8 @@
 package org.lpw.carousel.config;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.lpw.carousel.handler.Handler;
 import org.lpw.carousel.handler.HandlerFactory;
 import org.lpw.tephra.bean.BeanFactory;
@@ -43,7 +44,7 @@ public class ConfigServiceImpl implements ConfigService {
     public Update update(String value) {
         JSONObject json;
         try {
-            json = JSONObject.fromObject(value);
+            json = JSON.parseObject(value);
         } catch (Exception e) {
             logger.warn(e, "解析配置[{}]为JSON时发生异常！", value);
 
@@ -53,10 +54,10 @@ public class ConfigServiceImpl implements ConfigService {
         if (json == null || json.isEmpty())
             return Update.Empty;
 
-        if (!json.has("name"))
+        if (!json.containsKey("name"))
             return Update.NameIllegal;
 
-        if (!json.has("actions"))
+        if (!json.containsKey("actions"))
             return Update.ActionsIllegal;
 
         String name = json.getString("name");
@@ -69,7 +70,7 @@ public class ConfigServiceImpl implements ConfigService {
 
         for (int i = 0; i < array.size(); i++) {
             JSONObject object = array.getJSONObject(i);
-            if (object.isEmpty() || !object.has("handler"))
+            if (object.isEmpty() || !object.containsKey("handler"))
                 return Update.HandlerIllegal;
 
             Handler handler = handlerFactory.get(object.getString("handler"));
@@ -82,15 +83,15 @@ public class ConfigServiceImpl implements ConfigService {
             config = new ConfigModel();
             config.setName(name);
         }
-        if (json.has("description"))
+        if (json.containsKey("description"))
             config.setDescription(json.getString("description"));
-        if (json.has("delay"))
+        if (json.containsKey("delay"))
             config.setDelay(Math.max(0, converter.toInt(json.get("delay"))));
-        if (json.has("interval"))
+        if (json.containsKey("interval"))
             config.setInterval(Math.max(0, converter.toInt(json.get("interval"))));
-        if (json.has("times"))
+        if (json.containsKey("times"))
             config.setTimes(Math.max(0, converter.toInt(json.get("times"))));
-        if (json.has("wait"))
+        if (json.containsKey("wait"))
             config.setWait(Math.max(0, Math.min(1, converter.toInt(json.get("wait")))));
         config.setValue(json.toString());
         config.setTime(new Timestamp(System.currentTimeMillis()));
@@ -150,7 +151,7 @@ public class ConfigServiceImpl implements ConfigService {
             if (config == null)
                 return null;
 
-            JSONArray array = JSONObject.fromObject(config.getValue()).getJSONArray("actions");
+            JSONArray array = JSON.parseObject(config.getValue()).getJSONArray("actions");
             actions = new Action[array.size()];
             for (int i = 0; i < actions.length; i++) {
                 JSONObject object = array.getJSONObject(i);

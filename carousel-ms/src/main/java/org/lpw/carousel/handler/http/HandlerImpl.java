@@ -1,6 +1,6 @@
 package org.lpw.carousel.handler.http;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.lpw.carousel.handler.Handler;
 import org.lpw.carousel.handler.Parameter;
 import org.lpw.tephra.bean.BeanFactory;
@@ -30,7 +30,7 @@ public class HandlerImpl implements Handler {
 
     @Override
     public boolean isValid(JSONObject parameter) {
-        return parameter != null && parameter.has("url");
+        return parameter != null && parameter.containsKey("url");
     }
 
     @Override

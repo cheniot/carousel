@@ -1,6 +1,6 @@
 package org.lpw.carousel.handler;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 处理器接口规范。

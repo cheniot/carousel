@@ -1,6 +1,6 @@
 package org.lpw.carousel.discovery;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.lpw.tephra.cache.Cache;
@@ -34,14 +34,14 @@ public class ExecuteTest extends TestSupport {
         mockHelper.reset();
         mockHelper.mock("/discovery/execute");
         JSONObject object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(2311, object.getInt("code"));
+        Assert.assertEquals(2311, object.getIntValue("code"));
         Assert.assertEquals(message.get(DiscoveryModel.NAME + ".key.not-exists"), object.getString("message"));
 
         mockHelper.reset();
         mockHelper.getHeader().addHeader("carousel-ds-key", "key");
         mockHelper.mock("/discovery/execute");
         object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(2311, object.getInt("code"));
+        Assert.assertEquals(2311, object.getIntValue("code"));
         Assert.assertEquals(message.get(DiscoveryModel.NAME + ".key.not-exists"), object.getString("message"));
 
         for (int i = 0; i < 5; i++)
@@ -50,7 +50,7 @@ public class ExecuteTest extends TestSupport {
         mockHelper.getHeader().addHeader("carousel-ds-key", "key");
         mockHelper.mock("/discovery/execute");
         object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(2311, object.getInt("code"));
+        Assert.assertEquals(2311, object.getIntValue("code"));
         Assert.assertEquals(message.get(DiscoveryModel.NAME + ".key.not-exists"), object.getString("message"));
 
         List<String> urls = new ArrayList<>();
@@ -71,7 +71,7 @@ public class ExecuteTest extends TestSupport {
             }
             mockHelper.mock("/discovery/execute");
             object = mockHelper.getResponse().asJson();
-            Assert.assertEquals(0, object.getInt("code"));
+            Assert.assertEquals(0, object.getIntValue("code"));
             Assert.assertEquals("content " + i, object.getString("data"));
             Assert.assertEquals(i + 1, urls.size());
             set.add(urls.get(i));

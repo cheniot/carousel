@@ -1,6 +1,6 @@
 package org.lpw.carousel.handler.http;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.lpw.carousel.handler.Parameter;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -19,11 +19,11 @@ public class ParameterImpl implements Parameter {
 
     @Override
     public void set(JSONObject object) {
-        if (!object.has("url"))
+        if (!object.containsKey("url"))
             return;
 
         map.put("url", object.getString("url"));
-        map.put("success", object.has("success") ? object.getString("success") : "");
+        map.put("success", object.containsKey("success") ? object.getString("success") : "");
     }
 
     @SuppressWarnings({"unchecked"})

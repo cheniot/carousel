@@ -1,6 +1,6 @@
 package org.lpw.carousel.config;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author lpw
@@ -8,7 +8,7 @@ import net.sf.json.JSONObject;
 public interface ConfigService {
     enum Update {Success, Exception, Empty, NameIllegal, ActionsIllegal, HandlerIllegal}
 
-    String VALIDATOR_EXISTS=ConfigModel.NAME+".validator.exists";
+    String VALIDATOR_EXISTS = ConfigModel.NAME + ".validator.exists";
 
     /**
      * 更新配置。

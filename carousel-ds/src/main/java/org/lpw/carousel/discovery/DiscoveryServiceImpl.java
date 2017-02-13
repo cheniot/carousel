@@ -1,6 +1,6 @@
 package org.lpw.carousel.discovery;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.lpw.tephra.cache.Cache;
 import org.lpw.tephra.dao.orm.PageList;
 import org.lpw.tephra.scheduler.SecondsJob;

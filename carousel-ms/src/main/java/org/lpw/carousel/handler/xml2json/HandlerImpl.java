@@ -1,6 +1,6 @@
 package org.lpw.carousel.handler.xml2json;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.lpw.carousel.handler.Handler;
 import org.lpw.carousel.handler.Parameter;
 import org.lpw.tephra.util.Xml;

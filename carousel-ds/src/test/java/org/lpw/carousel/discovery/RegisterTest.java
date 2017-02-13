@@ -1,6 +1,6 @@
 package org.lpw.carousel.discovery;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.lpw.tephra.cache.Cache;
@@ -22,7 +22,8 @@ public class RegisterTest extends TestSupport {
     private Generator generator;
     @Inject
     private Cache cache;
-    @Inject private SchedulerAspect schedulerAspect;
+    @Inject
+    private SchedulerAspect schedulerAspect;
 
     @Test
     public void reigster() {
@@ -32,21 +33,21 @@ public class RegisterTest extends TestSupport {
         mockHelper.reset();
         mockHelper.mock("/discovery/register");
         JSONObject object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(2301, object.getInt("code"));
+        Assert.assertEquals(2301, object.getIntValue("code"));
         Assert.assertEquals(message.get(Validators.PREFIX + "empty", message.get(DiscoveryModel.NAME + ".key")), object.getString("message"));
 
         mockHelper.reset();
         mockHelper.getRequest().addParameter("key", generator.random(101));
         mockHelper.mock("/discovery/register");
         object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(2302, object.getInt("code"));
+        Assert.assertEquals(2302, object.getIntValue("code"));
         Assert.assertEquals(message.get(Validators.PREFIX + "over-max-length", message.get(DiscoveryModel.NAME + ".key"), 100), object.getString("message"));
 
         mockHelper.reset();
         mockHelper.getRequest().addParameter("key", "service key");
         mockHelper.mock("/discovery/register");
         object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(2303, object.getInt("code"));
+        Assert.assertEquals(2303, object.getIntValue("code"));
         Assert.assertEquals(message.get(Validators.PREFIX + "empty", message.get(DiscoveryModel.NAME + ".service")), object.getString("message"));
 
         mockHelper.reset();
@@ -54,7 +55,7 @@ public class RegisterTest extends TestSupport {
         mockHelper.getRequest().addParameter("service", generator.random(101));
         mockHelper.mock("/discovery/register");
         object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(2304, object.getInt("code"));
+        Assert.assertEquals(2304, object.getIntValue("code"));
         Assert.assertEquals(message.get(Validators.PREFIX + "over-max-length", message.get(DiscoveryModel.NAME + ".service"), 100), object.getString("message"));
 
         mockHelper.reset();
@@ -62,7 +63,7 @@ public class RegisterTest extends TestSupport {
         mockHelper.getRequest().addParameter("service", "service url");
         mockHelper.mock("/discovery/register");
         object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(2305, object.getInt("code"));
+        Assert.assertEquals(2305, object.getIntValue("code"));
         Assert.assertEquals(message.get(Validators.PREFIX + "empty", message.get(DiscoveryModel.NAME + ".validate")), object.getString("message"));
 
         mockHelper.reset();
@@ -71,7 +72,7 @@ public class RegisterTest extends TestSupport {
         mockHelper.getRequest().addParameter("validate", generator.random(101));
         mockHelper.mock("/discovery/register");
         object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(2306, object.getInt("code"));
+        Assert.assertEquals(2306, object.getIntValue("code"));
         Assert.assertEquals(message.get(Validators.PREFIX + "over-max-length", message.get(DiscoveryModel.NAME + ".validate"), 100), object.getString("message"));
 
         mockHelper.reset();
@@ -81,7 +82,7 @@ public class RegisterTest extends TestSupport {
         mockHelper.getRequest().addParameter("success", generator.random(101));
         mockHelper.mock("/discovery/register");
         object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(2307, object.getInt("code"));
+        Assert.assertEquals(2307, object.getIntValue("code"));
         Assert.assertEquals(message.get(Validators.PREFIX + "over-max-length", message.get(DiscoveryModel.NAME + ".success"), 100), object.getString("message"));
 
         mockHelper.reset();
@@ -91,7 +92,7 @@ public class RegisterTest extends TestSupport {
         mockHelper.getRequest().addParameter("success", "success pattern");
         mockHelper.mock("/discovery/register");
         object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(0, object.getInt("code"));
+        Assert.assertEquals(0, object.getIntValue("code"));
         Assert.assertEquals("", object.getString("data"));
         DiscoveryModel discovery = findByKeyService("service key", "service url");
         Assert.assertEquals("service key", discovery.getKey());
@@ -117,7 +118,7 @@ public class RegisterTest extends TestSupport {
         mockHelper.getRequest().addParameter("register", "2017-01-02 03:04:05");
         mockHelper.mock("/discovery/register");
         object = mockHelper.getResponse().asJson();
-        Assert.assertEquals(0, object.getInt("code"));
+        Assert.assertEquals(0, object.getIntValue("code"));
         Assert.assertEquals("", object.getString("data"));
         discovery = findByKeyService("service key", "service url");
         Assert.assertEquals("service key", discovery.getKey());

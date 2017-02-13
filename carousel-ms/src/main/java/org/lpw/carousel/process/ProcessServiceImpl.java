@@ -1,6 +1,6 @@
 package org.lpw.carousel.process;
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.lpw.carousel.config.ConfigModel;
 import org.lpw.carousel.config.ConfigService;
 import org.lpw.carousel.process.step.StepService;
