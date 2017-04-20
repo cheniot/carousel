@@ -14,12 +14,12 @@
         <dependency>
             <groupId>org.lpw.carousel</groupId>
             <artifactId>carousel-ms</artifactId>
-            <version>0.4.1-RELEASE</version>
+            <version>${version.carousel}</version>
         </dependency>
         <dependency>
             <groupId>org.lpw.carousel</groupId>
             <artifactId>carousel-ds</artifactId>
-            <version>0.4.1-RELEASE</version>
+            <version>${version.carousel}</version>
         </dependency>
         <dependency>
             <groupId>org.lpw.tephra</groupId>

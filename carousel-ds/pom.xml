@@ -13,10 +13,6 @@
     <name>carousel-ds</name>
     <url>http://maven.apache.org</url>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.lpw.tephra</groupId>
@@ -26,7 +22,7 @@
         <dependency>
             <groupId>org.lpw.carousel</groupId>
             <artifactId>carousel-test</artifactId>
-            <version>0.4.1-RELEASE</version>
+            <version>${version.carousel}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
