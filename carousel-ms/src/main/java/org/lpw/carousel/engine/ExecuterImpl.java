@@ -7,7 +7,7 @@ import org.lpw.carousel.handler.Handler;
 import org.lpw.carousel.handler.HandlerFactory;
 import org.lpw.carousel.process.ProcessModel;
 import org.lpw.carousel.process.ProcessService;
-import org.lpw.tephra.atomic.Closable;
+import org.lpw.tephra.atomic.Closables;
 import org.lpw.tephra.util.Logger;
 import org.lpw.tephra.util.TimeUnit;
 import org.lpw.tephra.util.Validator;
@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.Set;
 
 /**
  * @author lpw
@@ -29,7 +28,7 @@ public class ExecuterImpl implements Executer {
     @Inject
     private Logger logger;
     @Inject
-    private Set<Closable> closables;
+    private Closables closables;
     @Inject
     private ConfigService configService;
     @Inject
@@ -70,8 +69,6 @@ public class ExecuterImpl implements Executer {
         if (config == null || process == null || failure >= processService.getMaxFailure())
             return null;
 
-        if (reset)
-            config = configService.findById(config.getId());
         if (time > System.currentTimeMillis() || (failure > 0 && time + (TimeUnit.Second.getTime() << (failure + 2)) > System.currentTimeMillis())) {
             engine.execute(this);
 
@@ -92,6 +89,8 @@ public class ExecuterImpl implements Executer {
     }
 
     private void execute() {
+        if (reset)
+            config = configService.findById(config.getId());
         Action[] actions = configService.getActions(config.getId());
         if (validator.isEmpty(actions))
             return;
@@ -133,6 +132,6 @@ public class ExecuterImpl implements Executer {
     }
 
     private void commit() {
-        closables.forEach(Closable::close);
+        closables.close();
     }
 }
